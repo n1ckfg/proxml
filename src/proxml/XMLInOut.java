@@ -552,13 +552,13 @@ public class XMLInOut{
 		// when a sketch is exported to the web, where case sensitivity
 		// matters, as opposed to windows and the mac os default where
 		// case sensitivity does not.
-		if (!pApplet.online){
+		//if (!pApplet.online){
 			try{
 				// first see if it's in a data folder
-				File file = new File(pApplet.sketchPath + File.separator + "data", filename);
+				File file = new File(pApplet.sketchPath("") + File.separator + "data", filename);
 				if (!file.exists()){
 					// next see if it's just in this folder
-					file = new File(pApplet.sketchPath, filename);
+					file = new File(pApplet.sketchPath(""), filename);
 				}
 				if (file.exists()){
 					try{
@@ -586,7 +586,7 @@ public class XMLInOut{
 			}catch (IOException ioe){
 			}catch (SecurityException se){
 			}
-		}
+		//}
 
 		try{
 			// by default, data files are exported to the root path of the jar.
@@ -604,7 +604,7 @@ public class XMLInOut{
 			// an application, or as a signed applet
 			try{ // first try to catch any security exceptions
 				try{
-					File file = new File(pApplet.sketchPath, filename);
+					File file = new File(pApplet.sketchPath(""), filename);
 					stream = new FileInputStream(file);
 					if (stream != null)
 						return stream;
@@ -731,9 +731,9 @@ public class XMLInOut{
 	public void saveElement(final XMLElement xmlElement, String filename){
 		try{
 			File file;
-			if (!pApplet.online){
-				file = new File(pApplet.sketchPath + File.separator + "data", filename);
-				System.out.println(pApplet.sketchPath + File.separator + "data");
+			//if (!pApplet.online){
+				file = new File(pApplet.sketchPath("") + File.separator + "data", filename);
+				System.out.println(pApplet.sketchPath("") + File.separator + "data");
 				if (!file.exists()){
 					final String parent = file.getParent();
 
@@ -743,9 +743,9 @@ public class XMLInOut{
 							unit.mkdirs();
 					}
 				}
-			}else{
-				file = new File(pApplet.getClass().getResource("data/" + filename).toURI());
-			}
+			//}else{
+				//file = new File(pApplet.getClass().getResource("data/" + filename).toURI());
+			//}
 
 			PrintWriter output = new PrintWriter(new FileOutputStream(file));
 			output.println(docStart);
@@ -754,7 +754,7 @@ public class XMLInOut{
 			output.close();
 		}catch (Exception e){
 			e.printStackTrace();
-			System.out.println(pApplet.sketchPath + File.separator + "data");
+			System.out.println(pApplet.sketchPath("") + File.separator + "data");
 			System.out.println("You cannot write to this destination. Make sure destionation is a valid path");
 		}
 	}
